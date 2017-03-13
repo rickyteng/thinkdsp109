@@ -21,7 +21,7 @@ Permission is granted to copy, distribute, and/or modify this document under the
 
 # 目錄
 
-* 前言
+* [前言](thinkdsp001.md)
   * 誰適合這本書
   * 程式碼的使用方法
   * 貢獻列表
