@@ -25,7 +25,7 @@ Permission is granted to copy, distribute, and/or modify this document under the
   * 誰適合這本書
   * 程式碼的使用方法
   * 貢獻列表
-* 聲音與訊號
+* [聲音與訊號](thinkdsp002.md)
   * 週期訊號
   * 頻域分解
   * 訊號(類別)
@@ -34,13 +34,13 @@ Permission is granted to copy, distribute, and/or modify this document under the
   * 波形物件
   * 訊號物件
   * 習題
-* 諧波
+* [諧波](thinkdsp003.md)
   * 三角波
   * 方波
   * Aliasing
   * 計算頻譜
   * 習題
-* 非週期訊號
+* [非週期訊號](thinkdsp004.md)
   * 線性唧頻 (Linear chirp)
   * 指數唧頻 (Exponential chirp)
   * 唧頻的頻譜
@@ -50,14 +50,14 @@ Permission is granted to copy, distribute, and/or modify this document under the
   * Windowing
   * 實作 spectrogram
   * 習題
-* 噪音
+* [噪音](thinkdsp005.md)
   * 不相關噪音(Uncorrelated noise)
   * 積分頻譜(Integrated spectrum)
   * 布朗噪音(Brownian noise)
   * 粉紅噪音(Pink Noise)
   * 高斯噪音(Gaussian Noise)
   * 習題
-* 自相關(Autocorrelation)
+* [自相關(Autocorrelation)](thinkdsp006.md)
   * 相關(Correlation)
   * 序列相關(Serial correlation)
   * 自相關(Autocorrelation)
@@ -65,7 +65,7 @@ Permission is granted to copy, distribute, and/or modify this document under the
   * 相關與點積(Correlation as dot product)
   * 使用 numpy
   * 習題
-* 離散餘弦轉換(Discrete cosine transform)
+* [離散餘弦轉換(Discrete cosine transform)](thinkdsp007.md)
   * 合成
   * 用 array 合成
   * 分析
@@ -120,6 +120,3 @@ Permission is granted to copy, distribute, and/or modify this document under the
 * 索引
 
 
-```python
-
-```
