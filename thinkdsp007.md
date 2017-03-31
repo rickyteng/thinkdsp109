@@ -50,8 +50,10 @@ components 是一串 CosSignal 物件，每一個振幅與頻率的對應配對�
 
 ## 6.2 使用陣列合成 | Synthesis with arrays
 
----
-$ 
+
+***
+
+$$ 
 \begin{matrix}
   ~ & M & \begin{bmatrix}
     0.6 \\
@@ -80,10 +82,11 @@ $
   \end{bmatrix} & = & ys \\
   ~ & \begin{matrix}\cdot & f_k & \cdot & \cdot \end{matrix}   
 \end{matrix}
-$
+$$
 
 圖6.1 用陣列合成
----
+
+***
 
 這裡有另個方式寫出 synthesize：
 
