@@ -145,7 +145,7 @@ def analyze1(ys, fs, ts):
     M = np.cos(PI2 * args)
     amps = np.linalg.solve(M, ys)
     return amps
-````
+```
 前面兩行用 $ts$ 與 $fs$ 建立 matrix $M$，然後 `np.linalg.solve` 計算 `amps`。
 
 這裡有個小技巧，一般我們只在 matrix 是正方形的時候解系統的線性方程組，也就是說方程式(rows)的數量要等同末知數(unknowns)的數量。
@@ -162,7 +162,7 @@ def analyze1(ys, fs, ts):
 n = len(fs)
 amps2 = analyze1(ys[:n], fs, ts[:n])
 ```
-`amps2` 會是 `[0.6 0.25 0.1 0.05]
+`amps2` 會是 `[0.6 0.25 0.1 0.05]`
 
 這演算法有用，但是慢。解線性系統的時間會正比於 $ n^3 $，$n$ 是 $M$ 的行數。我們可以做得更好。
 
@@ -315,7 +315,7 @@ max(abs(amps - amps2))
 ```
 一樣，得到最大差異約為 1e-16。
 
-## DCT 類別 | The Dct class
+## 6.7 DCT 類別 | The Dct class
 
 ***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp036.png)
@@ -391,8 +391,3 @@ Implement a version of this algorithm and apply it to a recording of music or sp
 In order to make this method practical, you need some way to store a sparse array; that is, an array where most of the elements are zero. NumPy provides several implementations of sparse arrays, which you can read about at http://docs.scipy.org/doc/scipy/reference/sparse.html.
 
 Exercise 3   In the repository for this book you will find a Jupyter notebook called phase.ipynb that explores the effect of phase on sound perception. Read through this notebook and run the examples. Choose another segment of sound and run the same experiments. Can you find any general relationships between the phase structure of a sound and how we perceive it?
-
-
-```python
-
-```
