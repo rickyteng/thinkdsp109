@@ -11,9 +11,11 @@
 
 一個正弦曲線只有一個頻率組成，所以它的頻譜只有一個尖峰。較複雜的波形，像是小提琴錄下來的，經由 DFT 之後，會得到多個尖峰。在這節，我們會探討波形與頻譜之間的關係。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp006.png)
---圖2.1 200 Hz 的三角波的片段
 
+圖2.1：200 Hz 的三角波的片段
+***
 我會從一個三角波開始，它就像是正弦波的直線版。圖2.1 就是一個三角波，它的頻率是 200 Hz。
 
 要產生一個三角波，可以使用 thinkdsp.TriangleSignal：
@@ -44,9 +46,11 @@ TriangleSignal 從 Sinusoid 繼承了 \__init\__ 所以它也有同樣的參數 
     signal = thinkdsp.TriangleSignal(200)
     signal.plot()
     
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp007.png)
---圖2.2 200 Hz 三角波的頻譜，兩邊的垂直軸是不同範圍。右方的圖讓基頻振幅被圖切掉，是為了讓諧波更為清楚。
 
+圖2.2：200 Hz 三角波的頻譜，兩邊的垂直軸是不同範圍。右方的圖讓基頻振幅被圖切掉，是為了讓諧波更為清楚。
+***
 接下來我們使用 Signal 產生 Wave，然後用 Wave 產生 Spectrum：
 
     wave = signal.make_wave(duration=0.5, framerate=10000)
@@ -61,8 +65,11 @@ TriangleSignal 從 Sinusoid 繼承了 \__init\__ 所以它也有同樣的參數 
 
 ## 2.2 方波 | Square waves
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp008.png)
---圖2.3 100 Hz 方波的片段
+
+圖2.3：100 Hz 方波的片段
+***
 
 thinkdsp 也提供 SquareSignal 這代表一個方波，接下來是此類別的定義：
 
@@ -80,8 +87,11 @@ evaluate 方法的內容也相似，cycle 仍是從時間開始算有幾個循�
 
 unbias 移動 frac 讓斜率從 -0.5 到 0.5，然後 np.sign 讓負值全變成 -1，正值全變成 1。最後乘上 amp 得到方波的振幅在 -amp 到 +amp 之間。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp009.png)
---圖2.4 100 Hz 方波的頻譜
+
+圖2.4：100 Hz 方波的頻譜
+***
 
 圖2.3 顯示方波的三個週期，圖2.4顯示它的頻譜。
 
@@ -89,10 +99,12 @@ unbias 移動 frac 讓斜率從 -0.5 到 0.5，然後 np.sign 讓負值全變成
 
 最後這章的練習給你個機會探索其他的波形與諧波結構。
 
-## 2.3 Aliasing
+## 2.3 混疊 | Aliasing
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp010.png)
---圖2.5 1100 Hz 三角波的頻譜，framerate 是 10000。右方的圖經過尺度調整以顯示諧波
+圖2.5：1100 Hz 三角波的頻譜，framerate 是 10000。右方的圖經過尺度調整以顯示諧波
+***
 
 其實我藏了一手，我在前面章節的範例是精心挑選的，以避免讓你混亂。但現在是時候該讓你混亂一陣子。
 
@@ -116,9 +128,11 @@ unbias 移動 frac 讓斜率從 -0.5 到 0.5，然後 np.sign 讓負值全變成
     signal = thinkdsp.CosSignal(5500)
     segment = signal.make_wave(duration, framerate=framerate)
     segment.plot()
-    
+
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp011.png)
---圖2.6 4500 Hz 與 5500 Hz 的 cosine 訊號，在取樣率 10000。訊號是不同的，但取樣之後卻長得一樣。
+圖2.6：4500 Hz 與 5500 Hz 的 cosine 訊號，在取樣率 10000。訊號是不同的，但取樣之後卻長得一樣。
+***
 
 圖2.6 顯示了結果，我把訊號用淡灰色線畫出來，把取樣值用垂直線畫，是為了要讓兩個波形容易比較。這問題很明顯，就算訊號不同，但取樣之後兩個波形畫出來一樣。
 
@@ -130,7 +144,7 @@ unbias 移動 frac 讓斜率從 -0.5 到 0.5，然後 np.sign 讓負值全變成
 
 如果 aliasing 頻率被折到低於 0，這折疊頻率要再繼續折。例如，1100 Hz 的三角波的第 5 個諧波是在 12100 Hz，折疊頻率是 5000 Hz，那它應該出現在 -2100 Hz，但它應該對 0 Hz 折一次，就變成出現在 2100 Hz。事實上，在圖2.4 裡你可以看到有個小尖峰在 2100 Hz，再下一個是在 4300 Hz。
 
-## 2.4 計算頻譜
+## 2.4 計算頻譜 | Computing the spectrum
 
 我們已看過 Wave 的 make_spectrum 方法好幾次，現在來看它的實作(有些細節後面會再說明)：
 
@@ -156,9 +170,9 @@ rfftfreq 的結果，我叫它為 fs，它是一個 array，裡面的值就是�
 
 要瞭解 hs 裡面的值，可以用兩個方法來思考複數：
 
-* 複數是實部與虛部的和，通常寫在 x + iy。i 是單位虛數√−1，你可以把 x 與 y 想成卡式座標。
+* 複數是實部與虛部的和，通常寫在 $x + iy$。$i$ 是單位虛數 $\sqrt −1$，你可以把 $x$ 與 $y$ 想成卡式座標。
 
-* 複數也可以看成 A ei φ 這種形式，一個純數大小與複指數的相乘。A 是 magnitude，φ 是角度，單位是弧度，也叫做 argument。你可以把 A 與 φ 想成極座標。
+* 複數也可以看成 $A e^{i \phi}$ 這種形式，一個純數大小與複指數的相乘。A 是 magnitude，φ 是角度，單位是弧度，也叫做 argument。你可以把 $A$ 與 $\phi$ 想成極座標。
 
 每個在 hs 的值，都對應到一個頻率成份，它的 magnitude 正比於對應的成份的振幅，它的角度是相位移。
 
@@ -182,7 +196,7 @@ Spectrum 類別提供兩個唯讀性質，amps 與 angles，它回傳 numpy arra
 
 到了這裡，應該你更了解 Signal、Wave、Spectrum 類別如何運作。現在還沒有解釋到 Fast Fourier Transform 是如何運作的，這還需要幾章的知識。
 
-## 2.5 習題
+## 2.5 練習
 
 這些習題的解答在 chap02soln.ipyb。
 
@@ -210,7 +224,7 @@ Test your function using a square, triangle, or sawtooth wave.
 2. Modify the Spectrum using your function and plot it again.
 3. Use Spectrum.make_wave to make a Wave from the modified Spectrum, and listen to it. What effect does this operation have on the signal?
 
-Exercise 6   Triangle and square waves have odd harmonics only; the sawtooth wave has both even and odd harmonics. The harmonics of the square and sawtooth waves drop off in proportion to 1/f; the harmonics of the triangle wave drop off like 1/f2. Can you find a waveform that has even and odd harmonics that drop off like 1/f2?  
+Exercise 6   Triangle and square waves have odd harmonics only; the sawtooth wave has both even and odd harmonics. The harmonics of the square and sawtooth waves drop off in proportion to 1/f; the harmonics of the triangle wave drop off like $1/f^2$. Can you find a waveform that has even and odd harmonics that drop off like $1/f^2$?  
 Hint: There are two ways you could approach this: you could construct the signal you want by adding up sinusoids, or you could start with a signal that is similar to what you want and modify it.
 
 註1：python 裡，用 _ (底線) 當變數名稱是一個習慣用法，通常用在「我不想要用這個變數值」的情況。

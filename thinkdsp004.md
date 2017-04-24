@@ -7,10 +7,13 @@
 
 這章的程式碼在 chap03.ipynb，它的位置請看0.2節。你也可以在這看到它 http://tinyurl.com/thinkdsp03
 
-## 3.1 線性唧頻 | linear chirp
+## 3.1 線性唧頻 | Linear chirp
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp012.png)
---圖3.1 chirp 的波形，前段、中段 與尾段
+
+圖3.1：chirp 的波形，前段、中段 與尾段
+***
 
 我們先來看一個叫 chirp 的波，這訊號有著會變動的頻率。thinkdsp 提供一個繼承自 Signal 的 Chirp 類別，它是一個會隨著線性變化的頻率擺動的正弦波。
 
@@ -54,13 +57,13 @@ ts 是時間點的序列，代表要被評估的時間點，要保持這個函�
         
 np.diff 會計算 ts 裡相鄰兩個元素的差，回傳每個間隔的長度，單位是秒。如果 ts 是等間距，dts 就會全部一樣。
 
-下一步是搞懂每個間隔之間相位變化。在第1.7節，那時的頻率是常數，相位 φ 是隨時間線性增加：
+下一步是搞懂每個間隔之間相位變化。在第1.7節，那時的頻率是常數，相位 $\varphi$ 是隨時間線性增加：
 
-    φ = 2 π f t
+$$ \varphi = 2 \pi f t $$
 
 當頻率變成了時間的函式，相位的變化在一個很短的時間間隔Δ t會是：
 
-    Δ φ = 2 π f(t) Δ t
+$$ \Delta \varphi = 2 \pi f(t) \Delta t $$
     
 在 python 因為 freqs 包含f(t)、dts 包含時間間隔，我們可以寫成：
 
@@ -77,11 +80,11 @@ np.cumsum 計算的是累計的和，這幾乎是我們要的，只差它不是�
 
 如果你會一點微積分，會注意到 Δ t 在足夠小的時候會得到
 
-    d φ = 2 π f(t) d t
+$$ \mathrm d \varphi = 2 π f(t) \mathrm d t $$
     
 兩邊同除 d t 會得到
 
-    d φ / d t = 2 π f(t)
+$$ \frac{\mathrm d \varphi} {\mathrm d t} = 2 π f(t) $$
     
 換言之，頻率是相位的導數。反過來說，相位是頻率的積分結果。當我們使用 cumsum 從頻率得到相位，我們做了個近似積分的動作。
 
@@ -115,10 +118,13 @@ np.cumsum 計算的是累計的和，這幾乎是我們要的，只差它不是�
     
 你可以聽聽 chap03.ipynb 裡的這些範例，比較一下線性與指數唧頻。
 
-## 3.3 唧頻的頻譜
+## 3.3 唧頻的頻譜 | Spectrum of a chirp
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp013.png)
---圖3.2 一秒鐘一個八度的 chirp 的頻譜
+
+圖3.2：一秒鐘一個八度的 chirp 的頻譜
+***
 
 當你計算唧頻的頻譜時，你覺得會發生什麼事？這有個例子是建立一秒鐘，一個八度的唧頻以及它的頻譜：
 
@@ -132,10 +138,13 @@ np.cumsum 計算的是累計的和，這幾乎是我們要的，只差它不是�
 
 頻譜約略給了訊號結構的樣子，但卻沒有顯示頻率與時間的關係，我們無法在這頻譜圖中看到頻率是否隨時間上升或下降或改變。
 
-## 3.4 Spectrogram
+## 3.4 時頻圖 | Spectrogram
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp014.png)
---圖3.3 一秒鐘八度的唧頻的 spectrogram
+
+圖3.3：一秒鐘八度的唧頻的 spectrogram
+***
 
 要得到頻率與時間的關係，我們可以把唧頻切成一小段一小段的來畫頻譜。這結果就是所謂的 short-time Fourier Transform(STFT)。
 
@@ -157,15 +166,15 @@ seq_length 是每個小段要取多少數目的點。我選 512 是因為 FFT �
 
 spectrogram 很清楚顯示頻率隨時間線性增加，然而，每個尖峰會暈開兩到三個小格，這反映出 spectrogram 的解析度的極限。
 
-## 3.5 Gabor 極限
+## 3.5 Gabor 極限 | The Gabor limit
 
-spectrogram 的時間解析度是每個片段的持續時間，它對應到 spectrogram 中每個小格的寬度。每個小段是 512 個 frame。因為每秒有 11025 個 frame，所以每個片段是 0.046 秒。
+Spectrogram 的時間解析度是每個片段的持續時間，它對應到 spectrogram 中每個小格的寬度。每個小段是 512 個 frame。因為每秒有 11025 個 frame，所以每個片段是 0.046 秒。
 
 頻率解析度是頻譜中元素之間的頻率範圍，它對應到每個小格的高度。因為每個片段是 512 個 frame，我們在 0 到 5512.5 Hz 之間最多可切到 256 個頻率成份，每個成份的範圍是 21.6 Hz。
 
 更一般地來說，如果 n 是片段的長度，則頻譜包含了 n/2 個成份。如果 r 是 framerate，那在頻譜中最大的頻率是 r/2。所以時間解析度是 n/r，頻率解析度是
 
-    (r/2)/(n/2) = r/n。
+$$ \frac{r/2}{n/2} = r/n $$
 
 理想上，我們想讓時間解析度小，這樣我們可以看到頻率有比較快速的變化。我們讓頻率解析度小，這樣我們可以看到比較小的頻率變化。但我們沒辦法兩個好處都要。因為時間解析度是 n/r，它正好是頻率解析度 r/n 的倒數，所以一個變小，另一個就變大。
 
@@ -173,10 +182,13 @@ spectrogram 的時間解析度是每個片段的持續時間，它對應到 spec
 
 這個魚與熊掌的問題叫做 Gabor 極限。這是時間-頻率分析的基本限制。
 
-## 3.6 leakage
+## 3.6 洩漏 | leakage
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp015.png)
---圖3.4 週期正弦曲線的頻譜(左圖)，非週期的片段(中圖)，window 過的非週期片段(右圖)
+
+圖3.4：週期正弦曲線的頻譜(左圖)，非週期的片段(中圖)，window 過的非週期片段(右圖)
+***
 
 為了要解釋 make_spectrogram 的運作，我必須先解釋 windowing。而為了要解釋 windowing，我必須先介紹它要解決的問題。那問題叫做 leakage。
 
@@ -202,10 +214,13 @@ spectrogram 的時間解析度是每個片段的持續時間，它對應到 spec
 
 在這個例子中，leakage 是因為我們把不連續的小段當成週期性的，然後用 DFT 處理而發生。
 
-## 3.7 Windowing
+## 3.7 窗 | Windowing
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp016.png)
---圖3.5 正弦曲線的小段(上圖)、Hamming window (中圖)、小段與 window 相乘的結果 (下圖)
+
+圖3.5：正弦曲線的小段(上圖)、Hamming window (中圖)、小段與 window 相乘的結果 (下圖)
+***
 
 把開頭與結尾不連續的地方想辦法平滑地接起來，我們可以減少 leakage，其中一個方法叫做 windowing。
 
@@ -230,10 +245,13 @@ numpy 提供 hamming 函數，計算出給定長度的 Hamming window 的值：
             
 numpy 提供了其他的 window 函數，包含 bartlett、blackman、hanning、kaiser。這章的結尾的習題之一，會要求你試試其他的 window 函數。
 
-## 3.8 實作 spectrogram
+## 3.8 實作時頻圖 | Implementing spectrograms
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp017.png)
---圖3.6 重疊的 Hamming window
+
+圖3.6：重疊的 Hamming window
+***
 
 現在我們了解 windowing，接下來就可以了解 spectrogram 的實作了。接下來是 Wave 物件用來計算 spectrogram 的程式碼：
 
@@ -285,7 +303,7 @@ Spectrogram 提供 plot 方法，這會產生 pseudocolor 圖，它的 x 軸是�
 
 這就是 Spectrogram 的實作方式。
 
-## 3.9 習題
+## 3.9 練習
 
 Solutions to these exercises are in chap03soln.ipynb.
 

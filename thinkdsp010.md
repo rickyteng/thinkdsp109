@@ -53,7 +53,7 @@
 
 
 
-## 頻域 | The frequency domain
+## 9.2 頻域 | The frequency domain
 
 計算前後兩個元素差，正好與使用 window [1, -1] 使卷積的效果相同。如果這些元素的方向看似反向，請記得卷積在使用前要將 window 反向。
 
@@ -306,7 +306,7 @@ $$ \frac {d} {dt} E_f (t) = 2 \pi i f E_f (t)$$
 
 在浮點誤差範圍內，`out_wave2` 等同於 `out_wave`，而前者是我們用 `cumsum` 算出來的。所以卷積理論可用！但要注意這個示範只適用於週期訊號。
 
-## 積分噪音 | Integrating noise
+## 9.6 積分噪音 | Integrating noise
 
 在 4.3節，我們產生布朗噪音，方法是計算白噪音的累積和。現在我們了解 `cumsum` 在頻域上的效應，我們可以進一步看看布朗噪音的頻譜。
 

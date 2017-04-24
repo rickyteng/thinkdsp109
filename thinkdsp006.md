@@ -23,8 +23,11 @@ $\mu_x$ 與 $\mu_y$ 是 x 與 y 的平均值，$\sigma_x$ 與 $\sigma_y$ 是它�
 
 python 提供幾個方法計算相關，np.corrcoef 可以為任意數目的變數計算相關矩陣，它由每個變數兩兩之間的相關係數所組成。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp026.png)
---圖5.1 兩個正弦波，相差 1 個弧度的相位。它們的相關係數是 0.54
+
+圖5.1：兩個正弦波，相差 1 個弧度的相位。它們的相關係數是 0.54
+***
 
 我會從兩個變數的例子開始。首先我定義一個函數，會依相位差產生正弦波。
 
@@ -48,8 +51,11 @@ ddof=0 的選項是表示，corrcoef 應該被 N 除，而不是預設的 N-1。
 
 產生的結果是相關矩陣，第一個元素是 wave1 與自己的相關，所以永遠為 1。同樣的，最後一個元素是 wave2 與自己的相關。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp027.png)
---圖5.2 兩個正弦波的相關，正是兩者之間相位差的函數。結果是一個餘弦函數。
+
+圖5.2：兩個正弦波的相關，正是兩者之間相位差的函數。結果是一個餘弦函數。
+***
 
 非對角線元素包含我們有興趣的值，wave1 與 wave2 的相關。0.54 這個值表示相關的強度約是中等。
 
@@ -95,8 +101,11 @@ serial_corr 會取用一個 wave 物件與 lag，它是 wave 要平移多少的�
     
 結果我得到一個比 0.999 還高的值，說明這非常強的序列相關。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp028.png)
---圖5.3 pink noise 的 beta 與序列相關的值的關係圖
+
+圖5.3：pink noise 的 beta 與序列相關的值的關係圖
+***
 
 因為 pink noise 是介在 UU noise 與布朗噪音之間，我們會猜測它的序列相關的值應該介在中間：
 
@@ -110,9 +119,11 @@ serial_corr 會取用一個 wave 物件與 lag，它是 wave 要平移多少的�
 
 在前一節中，我們計算每個值與下個值之間的相關，所以我們將序列中的元素平移一格，也就是延遲一格。實際上，我們可以計算不同延遲(lag)的相關值。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp029.png)
 
---圖5.4 pink noise 的自相關函數值。
+圖5.4：pink noise 的自相關函數值。
+***
 
 你可以想像，serial_corr 是個函數，對應每個延遲(lag)到相關數，我們就可以用迴圈將延遲的值一個個用函數評估出相關數：
 
@@ -127,23 +138,25 @@ autocorr 以 Wave object 當參數，回傳 lags 與 corrs。lags 是 0 到一�
 
 圖5.4 顯示 pink noise 的自相關函數，裡面有三個不同值的 $\beta$。對於低值的 $\beta$ 來說，這訊號比較少相關，所以自相關函數就下降很快。對於大一點的$\beta$值，序列相關就比較強一點，下降就慢一點。$\beta$=1.7 就算長延遲其序列相關也很強。這現像叫 long-range dependence (長範圍相依)，因為它指出每個值都與之前的很多值有依賴。
 
-## 5.4 週期函數的自相關 | Autocorrelation of periodic signals
+## 5.4 週期訊號的自相關 | Autocorrelation of periodic signals
 
 pink noise 的自相關有著有趣的數學性質，但可利用的比較少。週期函數的自相關則比較多用途。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp030.png)
 
---圖5.5 聲音唧頻的 pectrogram
+圖5.5：聲音唧頻的 pectrogram
+***
 
 舉例來說，我從 freesound.org 下載某個人唱歌的聲音，在本書的(repository)公開庫也包含這個檔案 <pre>28042__bcjordan__voicedownbew.wav</pre> 。也可以用 jupyter notebook 開啟 chap05.ipynb 來播放它。
 
 圖5.5 顯示這個波的 spectrogram，基頻與一些諧頻非常乾淨。這唧頻約在 500Hz 開始，約在 300 Hz 下降，大概接近 C5 到 E4 之間。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp031.png)
 
---圖5.6 一個聲音唧頻的頻譜
-
-![](http://greenteapress.com/thinkdsp/html/thinkdsp031.png)
+圖5.6：一個聲音唧頻的頻譜
+***
 
 要估計某時間點的音高，我們可以用頻譜，但它不是很好用。我們來看看為什麼不好用。我截出一段聲音，畫出它的頻譜：
 
@@ -162,12 +175,12 @@ pink noise 的自相關有著有趣的數學性質，但可利用的比較少。
 
 我們可以用自相關(autocorrleation)做更準確的估計音高。如果一個訊號是週期的，我們預期當延遲等同週期時，自相關會很尖銳。
 
----
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp032.png)
 
---圖5.7 從一個唧頻取兩音段，兩個相差 0.0023 秒。
+圖5.7：從一個唧頻取兩音段，兩個相差 0.0023 秒。
+***
 
----
 要解釋為什麼，我會從同樣的聲音畫兩個音段。
 
 ```
@@ -187,12 +200,12 @@ def plot_shifted(wave, offset=0.001, start=0.2):
 ```
 一個音段開始於 0.2 秒，另一個慢 0.0023 秒。圖5.7 顯示其結果。這些音段很相似，他們的相關數是 0.99。這個結果建議(suggest)其週期接近 0.0023，其對應於頻率 435Hz。
 
----
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp033.png)
 
---圖5.8 從唧率取的音段的自相關函數
+圖5.8：從唧率取的音段的自相關函數
+***
 
----
 在這個例子裡，我用試誤法估計週期。要自動化這個過程，我們可以使用自相關函數。
 
 ```
@@ -236,13 +249,15 @@ $$ r = \sum_i x_i y_i $$
 
 $$ x \cdot y = cos \theta $$
 
-\theta 是兩個向量的角度。這也解釋為什麼圖5.2 是一個 cosine 曲線
+$\theta$ 是兩個向量的角度。這也解釋為什麼圖5.2 是一個 cosine 曲線
 
 ## 5.6 使用 NumPy | Using NumPy
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp034.png)
 
---圖5.9 用 np.correlate 計算自相關函數
+圖5.9：用 np.correlate 計算自相關函數
+***
 
 NumPy 提供一個函式，correlate，這計算兩個函數或一個函數的自相關函數的相關。我們可以用它來計算前一節的音樂的自相關：
 

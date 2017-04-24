@@ -1,5 +1,5 @@
 
-# 第四章 噪音
+# 第四章 噪音 | Noise
 
 在英文中，noise (噪音)指的是不想要的或是令人不悅的聲音。在訊號處理的領域裡，它有兩個不同的意思：
 
@@ -13,8 +13,11 @@
 
 ## 4.1 不相關噪音 | Uncorrelated noise
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp018.png)
---圖4.1 不相關均勻噪音的波形
+
+圖4.1：不相關均勻噪音的波形
+***
 
 最簡單來瞭解噪音的方式就是製造它，最容易製造的噪音就是「不相關均勻噪音 uncorrelated uniform noise (UU noise)」。Uniform 均勻，指的是訊號的值是均勻分佈的隨機值，也就是在範圍中的每個值出現機率都一樣。uncorrelated 不相關，指的是每個值都獨立，不互相影響。也就是知道一個值之後，也沒有訊息可以預測其他的值。
 
@@ -37,8 +40,11 @@ UncorrelatedUniformNoise 繼承 \_Noise。而 \_Noise 繼承 Signal。
     
 如果你播放這個波，這聽起來像是你調收音機時，在兩個頻道之間的聲音。圖4.1 顯示這波形的長像，它看起來很隨機。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp019.png)
---圖4.2 不相關均勻噪音的能量頻譜
+
+圖4.2：不相關均勻噪音的能量頻譜
+***
 
 現在來看看它的頻譜：
 
@@ -53,14 +59,17 @@ Spectrum.plot_power 類似於 Spectrum.plot，只是它畫的是能量密度而�
 
 * 相關性：在訊號中的每個值是否獨立於其他的值，或是它們彼此相依？在 UU noise，值是獨立的。另一個相關性的例子是布朗噪音，每個值，都是前一個值的總和再加上隨機的一個步進值。所以如果訊號的值在某個特定點是高的，我們可以預期它接下來還是高的，如果原來是低的，也會預期它會留在低處。
 
-* 功率與頻率的關係：在 UU noise 的頻譜裡，每個頻率的功率是與分佈相同。也就是說平均功率對於所有頻率來說是一樣的。與之不同的一個例子是 pink noise，它的功率與頻率有相反的關係，也就是在頻率 f 的功率會正比於 1/f。
+* 功率與頻率的關係：在 UU noise 的頻譜裡，每個頻率的功率是與分佈相同。也就是說平均功率對於所有頻率來說是一樣的。與之不同的一個例子是 pink noise，它的功率與頻率有相反的關係，也就是在頻率 $f$ 的功率會正比於 $1/f$。
 
 ## 4.2 積分頻譜 | Integrated spectrum
 
 對於 UU noise 來說，使用積分頻譜，我們可以比較清楚看到功率與頻率的關係。積分頻譜會是頻率的函數，隨著頻率增加而顯示到某頻率的功率的累積和。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp020.png)
---圖4.3 不相關均勻噪音的積分頻譜
+
+圖4.3：不相關均勻噪音的積分頻譜
+***
 
 Spectrum 提供了一個方法計算積分頻譜 IntegratedSpectrum：
 
@@ -88,8 +97,11 @@ self.power 是 numpy 的 array，包含每個頻率的功率。np.cumsum 則是�
 
 ## 4.3 布朗噪音 | Brownian noise
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp021.png)
---圖4.4 布朗噪音的波形
+
+圖4.4：布朗噪音的波形
+***
 
 UU noise 說是不相關，是指它的每個值都與其他值無關。一個有相關的例子是「布朗噪音 Brownian noise」，裡面的每個值都是前值的總和再加一個隨機步進值。
 
@@ -119,8 +131,11 @@ evaluate 使用 np.random.uniform 產生一個不相關訊號，然後 np.cumsum
     
 圖4.4 顯示這個結果，波形忽高忽低，接連的值都有很明顯的相關性。當振幅是高的，它傾向保持在高，反之亦然。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp022.png)
---圖4.5 布朗噪音的頻譜畫在線性座標圖與 log-log 對數座標圖上
+
+圖4.5：布朗噪音的頻譜畫在線性座標圖與 log-log 對數座標圖上
+***
 
 如果你畫了布朗噪音的頻譜放在線性座標圖上，像圖4.5 左圖。幾乎功率都在低頻，若用線性座標畫，高頻部份幾乎看不到。
 
@@ -160,8 +175,11 @@ $K$ 是 $e^k$，這裡我們還是先不討論它。重要的是，功率與 $1/
 
 ## 4.4 粉紅噪音 | Pink Noise
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp023.png)
---圖4.6 β=1 的 pink noise 的波形
+
+圖4.6：β=1 的 pink noise 的波形
+***
 
 紅噪音的頻率與功率的關係式是
 
@@ -199,8 +217,11 @@ amp 是想要的振幅，beta 是上面的公式的指數值。PinkNoise 提供 
         
 duration 是波持續的時間，start 是波開始的時間，會在這裡是為了保持介面的一致，所有的 noise 的介面都會長成一樣，但對隨機噪音而言，這項用不到。framerate 是每秒取樣的數目。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp024.png)
---圖4.7 白、粉紅、紅噪音的頻譜，畫在 log-log 對數座標上
+
+圖4.7：白、粉紅、紅噪音的頻譜，畫在 log-log 對數座標上
+***
 
 make_wave 產生白噪音的波，計算它的頻譜，設定好過濾器的指數值，執行過濾的動作。然後再從頻譜轉回波，然後調整偏置與正規化到想要的振幅。
 
@@ -219,8 +240,11 @@ pink_filter 把每個頻譜的元素都除以 $f^{β/2}$。因為功率是振幅
 
 ## 4.5 高斯噪音 | Gaussian noise
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp025.png)
---圖4.8 常態機率圖：高斯噪音的頻譜的實部與虛部
+
+圖4.8：常態機率圖：高斯噪音的頻譜的實部與虛部
+***
 
 我們開始時是介紹 UU noise (不相關均勻噪音)，並且說明 UU noise 之所以叫白噪音是因為從頻譜來看，每個頻率的功率是一樣的。
 
@@ -255,7 +279,7 @@ NormalProbabilityPlot 由 thinkstats2 提供，它也在這本書附的程式碼
 
 UU noise 的頻譜也是 UG noise，至少是相近。事實上，依據中央極限原理，大多數的不相關噪音的頻譜，都近似高斯分佈，只要分佈有有限的平均值與標準差，而且取樣數目夠大。
 
-## 4.6  習題
+## 4.6  練習
 
 Solutions to these exercises are in chap04soln.ipynb.
 

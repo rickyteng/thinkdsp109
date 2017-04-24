@@ -297,7 +297,7 @@ max(abs(amps - amps2))
 
 從 amps 開始，我們合成一個 wave array，然後使用 dct_iv 計算出 amps2。從 amps 與 amps2 中最大的差異約是 1e-16，我們可預期是因為浮點數誤差。
 
-## 6.6 反DCT | Inverse DCT
+## 6.6 反離散餘弦轉換 | Inverse DCT
 
 最後要注意，analyze2 與 synthesize2 幾乎相同，其中差異只有 analyze2 有把結果除以 2。我們可以用這觀察來計算「反離散餘弦轉換 | inverse DCT」：
 
@@ -317,11 +317,11 @@ max(abs(amps - amps2))
 
 ## DCT 類別 | The Dct class
 
----
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp036.png)
---圖6.2 400 Hz 的三角訊號，取樣率 10 kHz
 
----
+圖6.2 400 Hz 的三角訊號，取樣率 10 kHz
+***
 
 thinkdsp 提供 Dct 類別，它封裝 DCT，就跟 Spectrum 類別封裝 FFT 一樣。要得到 Dct 物件，可以用 Wave 呼叫 make_dct。
 

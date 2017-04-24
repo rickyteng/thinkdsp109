@@ -17,9 +17,11 @@
 
 ## 1.1 週期訊號 | Periodic signals
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp001.png)
---圖1.1 鐘聲的錄音片段
 
+圖1.1：鐘聲的錄音片段
+***
 我們一開始介紹週期訊號，它是會不斷重覆的訊號，而且固定時間間隔就重覆一次。例如，如果你敲鐘，它會振動然後產生聲音，如果你記錄下這個聲音然後畫出它的訊號，它會看起來像是圖1.1。
 
 這個訊號類似於正弦曲線 sinusoid，這意味著他與三角函數裡的正弦函數 sine 有相同形狀。
@@ -30,8 +32,11 @@
 
 上面的例子，訊號的頻率是 439 Hz，略低於 440 Hz。440 Hz 是交響樂用來調音的頻率，音符名是 A，或精確地說是 A4。如果你不熟這些音樂符號，只要知道 A4 比中央 C 低，A5 比中央 C 高，其他就去看 wiki： http://en.wikipedia.org/wiki/Scientific_pitch_notation
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp002.png)
---圖1.2 小提琴的錄音片段
+
+圖1.2：小提琴的錄音片段
+***
 
 音叉產生的訊號是正弦曲線，因為它的振動是簡諧運動。多數的樂器產生週期訊號，但訊號形狀不是正弦曲線。例如圖 1.2，它是從波契里尼的 E 大調 弦樂五重奏第5號，第三樂章的小提琴錄下來的。
 
@@ -39,8 +44,11 @@
 
 ## 1.2 頻譜分解 | Spectral decomposition
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp003.png)
---圖1.3 小提琴的錄音片段的頻譜
+
+圖1.3：小提琴的錄音片段的頻譜
+***
 
 在這本書最重要的主題就是頻譜分解 spectral decomposition。這概念是，任何訊號都可以用不同頻率的正弦函數相加來表示。
 
@@ -109,8 +117,11 @@ Wave 物件提供了 plot 方法，它使用 pyplot 來畫圖。你可以像這�
     
 pyplot 是 matplotlib 的一部份，在許多 python 包有，或者你可以自己安裝。
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp004.png)
---圖1.4 兩個正弦曲線的組合的片段
+
+圖1.4：兩個正弦曲線的組合的片段
+***
 
 freq=440，在 0.5 秒之內，會有 220 個週期，所以直接畫會看到一團顏色。要放大到只看到幾個週期的話，我們可以用 segment，它會複製一小段 Wave 然後回傳成一個新的 wave。
 
@@ -173,9 +184,11 @@ play 這個方法會把 wave 寫回成檔案，然後播放它。如果你用 Ju
 
 ## 1.6 波形物件 | Wave objects
 
+***
 ![](http://greenteapress.com/thinkdsp/html/thinkdsp005.png)
---圖1.5 thinkdsp 裡的類別的關係
 
+圖1.5：thinkdsp 裡的類別的關係
+***
 thinkdsp.py 裡面沒有什麼複雜的東西，多數函式只是提供一個輕巧的包裝，讓 numpy 與 scipy 比較方便用。
 
 thinkdsp 裡面主要的類別是 Signal, Wave, Spectrum。給定一個 Signal，就可以製造一個 Wave。給定一個 Wave，就可以製造一個 Spectrum。反過來從 Spectrum 製造一個 Wave 也行。其中關係可以看圖1.5。
@@ -250,7 +263,7 @@ n 是取樣的數目，ts 是 numpy 的 array，裝的是取樣時間。
 
 在數學的表示上，evaluate 會長成這樣：
 
-    y = A cos(2 π f t + φ0)
+$$ y = A cos(2 \pi f t + \phi_0) $$
     
 A 是 amplitude，也就是振幅，f 是頻率，t 是時間，相位的位移。這看起來跟我寫一大堆程式碼的效果一樣，但接下來會看到，這些程式碼可以提供一個架構讓所有的訊號都可用，而不只是正弦曲線而已。
 
